@@ -46,7 +46,7 @@ function App() {
 
     return (
         <div className="App">
-            <h1>{rollNumber}</h1>
+            
             <textarea value={input} onChange={(e) => setInput(e.target.value)} />
             <button onClick={handleSubmit}>Submit</button>
             <div>
