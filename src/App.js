@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const rollNumber = 'RA2111003030345';
+
 
 function App() {
     const [input, setInput] = useState('');
@@ -9,9 +9,6 @@ function App() {
     const [filters, setFilters] = useState([]);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        document.title = rollNumber;
-    }, []);
 
     const handleSubmit = async () => {
         console.log('Submit button clicked');
