@@ -7,6 +7,7 @@ function App() {
     const [input, setInput] = useState('');
     const [response, setResponse] = useState(null);
     const [filters, setFilters] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         document.title = rollNumber;
@@ -20,8 +21,10 @@ function App() {
             const res = await axios.post('https://backend-bajaj.vercel.app/bfhl', { data: parsedInput.data });
             console.log('Response:', res.data);
             setResponse(res.data);
+            setError(null); // Clear previous errors if successful
         } catch (error) {
             console.error('Invalid JSON or error in API call', error);
+            setError('An error occurred. Please check the input and try again.');
         }
     };
 
@@ -37,9 +40,9 @@ function App() {
         if (!response) return null;
         return (
             <div>
-                {filters.includes('Numbers') && <div>Numbers: {response.numbers.join(', ')}</div>}
-                {filters.includes('Alphabets') && <div>Alphabets: {response.alphabets.join(', ')}</div>}
-                {filters.includes('Highest alphabet') && <div>Highest Alphabet: {response.highest_alphabet.join(', ')}</div>}
+                {filters.includes('Numbers') && <div>Numbers: {response.numbers?.join(', ')}</div>}
+                {filters.includes('Alphabets') && <div>Alphabets: {response.alphabets?.join(', ')}</div>}
+                {filters.includes('Highest alphabet') && <div>Highest Alphabet: {response.highest_alphabet?.join(', ')}</div>}
             </div>
         );
     };
@@ -63,6 +66,7 @@ function App() {
                     Highest alphabet
                 </label>
             </div>
+            {error && <div style={{ color: 'red' }}>{error}</div>}
             {renderResponse()}
         </div>
     );
